@@ -1,0 +1,24 @@
+[
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated"
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~mealy|mealy>io_risingEdge",
+    "sources":[
+      "~mealy|mealy>io_din"
+    ]
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~mealy|mealy>io_risingEdge_ref",
+    "sources":[
+      "~mealy|mealy>io_din"
+    ]
+  }
+]

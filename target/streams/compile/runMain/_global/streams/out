@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[src/main/scala/FIFO/fifo.scala 134:56] : [module DoubleBufferFifo]  Reference DoubleBuffer is not fully initialized.[0m
+[0m[[0m[31merror[0m] [0m[0m   : DoubleBuffer.io.deq.ready <= VOID[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mrunMain[0m) firrtl.passes.CheckInitialization$RefNotInitializedException:  @[src/main/scala/FIFO/fifo.scala 134:56] : [module DoubleBufferFifo]  Reference DoubleBuffer is not fully initialized.[0m
+[0m[[0m[31merror[0m] [0m[0m   : DoubleBuffer.io.deq.ready <= VOID[0m

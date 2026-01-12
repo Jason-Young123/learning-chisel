@@ -1,0 +1,258 @@
+$date
+2025-12-15T10:24+0000
+$end
+$version
+0.2
+$end
+$comment
+
+$end
+$timescale 1ns  $end
+$scope module forwardingMem1 $end
+ $var wire 10 ! fdmem_rdata_addr_pipe_0 $end
+ $var wire 8 " io_rdata $end
+ $var wire 1 # fdmem_rdata_en_pipe_0 $end
+ $var wire 10 $ io_waddr $end
+ $var wire 8 & io_rdata_REG $end
+ $var wire 8 ) fdmem $end
+ $var wire 1 , clock $end
+ $var wire 1 - io_wen $end
+ $var wire 10 1 io_raddr $end
+ $var wire 1 2 reset $end
+ $var wire 8 5 io_wdata $end
+  $scope module fdmem $end
+   $var wire 8 4 MPORT $end
+    $scope module MPORT $end
+     $var wire 1 % clk $end
+     $var wire 10 ' pipeline_addr_0 $end
+     $var wire 8 ( pipeline_data_0 $end
+     $var wire 1 * pipeline_valid_0 $end
+     $var wire 1 + en $end
+     $var wire 8 . data $end
+     $var wire 1 3 valid $end
+     $var wire 1 6 mask $end
+     $var wire 10 8 addr $end
+    $upscope $end
+    $scope module rdata $end
+     $var wire 8 / data $end
+     $var wire 1 0 en $end
+     $var wire 1 7 clk $end
+     $var wire 10 9 addr $end
+    $upscope $end
+  $upscope $end
+$upscope $end
+$enddefinitions $end
+$dumpvars
+b0000000000 8
+00
+b0000000000 9
+02
+03
+b00000000 &
+b00000000 )
+07
+b00000000 (
+b0000000000 1
+b00000000 "
+b0000000000 '
+b0000000000 !
+b00000000 5
+b00000000 4
+b0000000000 $
+b00000000 /
+b00000000 .
+16
+0#
+0%
+0*
+0+
+0,
+0-
+$end
+#0
+12
+#1
+10
+1#
+1%
+17
+1,
+#6
+02
+13
+b0000010000 $
+0%
+b10101011 5
+07
+b0000010000 8
+1+
+0,
+1-
+b10101011 .
+#11
+1%
+b10101011 &
+b0000010000 '
+17
+b10101011 (
+1*
+1,
+#16
+b0000100000 $
+0%
+b11001101 5
+07
+b0000100000 8
+0,
+b11001101 .
+#21
+1%
+b11001101 &
+b0000100000 '
+17
+b11001101 (
+1,
+#26
+b0000110000 $
+0%
+b11101111 5
+07
+b0000110000 8
+0,
+b11101111 .
+#31
+1%
+b11101111 &
+b0000110000 '
+17
+b11101111 (
+1,
+#36
+b0000010000 1
+03
+0%
+07
+0+
+0,
+0-
+#41
+b0000010000 !
+b10101011 "
+1%
+17
+b0000010000 9
+0*
+1,
+b10101011 /
+#46
+b0000100000 1
+0%
+07
+0,
+#51
+b0000100000 !
+b11001101 "
+1%
+17
+b0000100000 9
+1,
+b11001101 /
+#56
+b0000110000 1
+0%
+07
+0,
+#61
+b0000110000 !
+b11101111 "
+1%
+17
+b0000110000 9
+1,
+b11101111 /
+#66
+0%
+07
+0,
+#71
+1%
+17
+1,
+#76
+0%
+07
+0,
+#81
+1%
+17
+1,
+#86
+0%
+07
+0,
+#91
+1%
+17
+1,
+#96
+b0001000000 1
+13
+b0001000000 $
+0%
+b10001001 5
+07
+b0001000000 8
+1+
+0,
+1-
+b10001001 .
+#101
+b0001000000 !
+b10001001 "
+1%
+b10001001 &
+b0001000000 '
+17
+b10001001 (
+b0001000000 9
+1*
+1,
+b10001001 /
+#106
+0%
+07
+0,
+#111
+1%
+17
+1,
+#116
+0%
+07
+0,
+#121
+1%
+17
+1,
+#126
+0%
+07
+0,
+#131
+1%
+17
+1,
+#136
+0%
+07
+0,
+#141
+1%
+17
+1,
+#146
+b0000000000 1
+b0000000000 $
+b00000000 5
+0,
+0-

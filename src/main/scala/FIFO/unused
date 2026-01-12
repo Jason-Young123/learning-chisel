@@ -1,0 +1,56 @@
+//fifo寄存器,单级,只能存放一个数据
+class FifoReg(size:Int) extends Module{
+  val io = IO(new Bundle{
+    val enq = new WriteIO(size)//入队
+    val deq = new ReadIO(size)//出队
+  })
+
+  val empty :: full :: Nil = Enum(2)
+  val stateReg = RegInit(empty)
+  val dataReg = RegInit(0.U(size.W))
+
+  when(stateReg === empty){
+    when(io.enq.write){//由于是单级,写一个就满
+      stateReg := full
+      dataReg := io.enq.din
+    }
+    //读被忽略
+  } .elsewhen (stateReg === full) {
+    when(io.deq.read){//由于是单级,读一个就空
+      stateReg := empty
+      dataReg := 0.U
+    }
+    //写被忽略
+  } .otherwise{
+    //nothing
+  }
+
+  io.enq.full := (stateReg === full)
+  io.deq.empty := (stateReg === empty)
+  io.deq.dout := dataReg
+}
+
+
+
+class BubbleFifo(size:Int, depth:Int) extends Module{
+  val io = IO(new Bundle{
+    val enq = new WriteIO(size)
+    val deq = new ReadIO(size)
+  })
+
+  //创建depth级fifoReg
+  val buffers = Array.fill(depth) {Module(new FifoReg(size))}
+
+  //建立硬件连接
+  for(i <- 1 to depth - 1){
+    buffers(i).io.enq.din := buffers(i-1).io.deq.dout
+    buffers(i).io.enq.write := ~buffers(i-1).io.deq.empty
+    buffers(i-1).io.deq.read := ~buffers(i).io.enq.full
+  }
+
+  //由于和顶层接口名称完全相同,因此可以用<>符号链接
+  io.enq <> buffers(0).io.enq
+  io.deq <> buffers(depth-1).io.deq
+
+}
+

@@ -1,0 +1,33 @@
+module operator(
+  input        clock,
+  input        reset,
+  input  [3:0] io_a, // @[src/main/scala/Comb/operator.scala 7:14]
+  input  [3:0] io_b, // @[src/main/scala/Comb/operator.scala 7:14]
+  input  [3:0] io_c, // @[src/main/scala/Comb/operator.scala 7:14]
+  input  [3:0] io_d, // @[src/main/scala/Comb/operator.scala 7:14]
+  output [3:0] io_o1, // @[src/main/scala/Comb/operator.scala 7:14]
+  output [4:0] io_o2, // @[src/main/scala/Comb/operator.scala 7:14]
+  output [3:0] io_o3, // @[src/main/scala/Comb/operator.scala 7:14]
+  output [4:0] io_o4, // @[src/main/scala/Comb/operator.scala 7:14]
+  output [3:0] io_o5, // @[src/main/scala/Comb/operator.scala 7:14]
+  output [7:0] io_o6, // @[src/main/scala/Comb/operator.scala 7:14]
+  output [3:0] io_o7, // @[src/main/scala/Comb/operator.scala 7:14]
+  output [7:0] io_o8, // @[src/main/scala/Comb/operator.scala 7:14]
+  output       io_overflow1, // @[src/main/scala/Comb/operator.scala 7:14]
+  output       io_overflow2 // @[src/main/scala/Comb/operator.scala 7:14]
+);
+  wire [3:0] _io_o1_T_1 = io_a + io_b; // @[src/main/scala/Comb/operator.scala 26:17]
+  wire  _io_overflow1_T_12 = io_c[3] & io_d[3] & ~io_o3[3]; // @[src/main/scala/Comb/operator.scala 34:39]
+  wire [7:0] _io_o5_T = io_a * io_b; // @[src/main/scala/Comb/operator.scala 42:17]
+  wire [7:0] _io_o7_T = $signed(io_c) * $signed(io_d); // @[src/main/scala/Comb/operator.scala 48:17]
+  assign io_o1 = io_a + io_b; // @[src/main/scala/Comb/operator.scala 26:17]
+  assign io_o2 = {{1'd0}, _io_o1_T_1}; // @[src/main/scala/Comb/operator.scala 29:9]
+  assign io_o3 = $signed(io_c) + $signed(io_d); // @[src/main/scala/Comb/operator.scala 32:17]
+  assign io_o4 = $signed(io_c) + $signed(io_d); // @[src/main/scala/Comb/operator.scala 37:17]
+  assign io_o5 = _io_o5_T[3:0]; // @[src/main/scala/Comb/operator.scala 42:9]
+  assign io_o6 = io_a * io_b; // @[src/main/scala/Comb/operator.scala 45:17]
+  assign io_o7 = _io_o7_T[3:0]; // @[src/main/scala/Comb/operator.scala 48:9]
+  assign io_o8 = $signed(io_c) * $signed(io_d); // @[src/main/scala/Comb/operator.scala 51:17]
+  assign io_overflow1 = ~io_c[3] & ~io_d[3] & io_o3[3] | _io_overflow1_T_12; // @[src/main/scala/Comb/operator.scala 33:54]
+  assign io_overflow2 = 1'h0; // @[src/main/scala/Comb/operator.scala 53:16]
+endmodule

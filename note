@@ -1,0 +1,138 @@
+1. 在chisel中实例化module需要在外包裹Module()
+
+2. 只要使用switch语句,被赋值对象一点要在进入switch前进行初始化,不论其类型(reg/wire)或者switch的is列表
+全不全
+
+3. when语句按顺序执行,不同when语句中可以对同一变量(reg/wire)赋值,类似verilog中在always块内对同一变量多次
+赋值,此时最后赋值语句优先级最高;这些when语句也可以合并,例如:
+  //load逻辑
+  when(io.timerLoad){
+    when(io.timerSelect){
+      timerReg := 5.U
+    }.otherwise{
+      timerReg := 3.U
+    }
+  }
+  //count down逻辑,优先级高于load逻辑,即在count down过程中会忽略所有load请求
+  when(!io.timerDone){
+    timerReg := timerReg - 1.U
+  }
+
+
+  //以上语句等价于以下更符合verilog逻辑的写法:
+  /*when(!io.timerDone){
+    timerReg := timerReg - 1.U
+  } .otherwise{
+    when(io.timerLoad){
+      when(io.timerSelect){
+        timerReg := 5.U
+      } .otherwise{
+        timerReg := 3.U
+      }
+    }
+  }*/
+
+
+更一般地,reg/wire类型变量可以前后被多次:=赋值(不论是否在when内还是when外),且以最后一次赋值结果为准(后赋值
+具备更高优先级);在生成verilog时.这些语句会被合并到同一always块内
+
+
+4. 在同一when语句内可以对reg和wire变量:=赋值,前者被理解为always @(*)或assign组合逻辑,后者被理解为always @(
+posedge clk)时序逻辑
+
+
+5. Enum中变量名称必须以lowercase开头
+
+
+6. 有关Chisel中用 := 对信号进行连接(而scala中变量赋值则采用 =)
+											  --------------------------      --------------------------
+   可以想象如下通用模块连接路径: 顶层输入 -> |子模块A输入 -> 子模块A输出| -> |子模块B输入 -> 子模块B输出| -> 顶层输出
+											  --------------------------      --------------------------
+	
+	:= 左侧为被赋值(驱动)信号/被箭头指向信号 , 右侧为赋值(驱动)信号/箭头初始信号
+	
+	子模块A输入 := 顶层输入      e.g. 用顶层输入驱动子模块输入
+	子模块B输入 := 子模块A输出   e.g. 用子模块输出驱动子模块输入
+	顶层输出 := 子模块B输出      e.g. 用子模块输出驱动顶层输出
+
+
+7. 一些语法:
+	(1) .getWidth可以直接获取元素位宽,例如 a = Input(0.U((param).W)),其中param可能为某个参数(尤其在函数定义中常用)
+	(2) until循环计数包头不包尾; to循环计数包头包尾
+	(3) chisel中, 两个n bit相加,结果默认为n bit(创建n bit变量存放结果)
+			对于unsigned, 不考虑carry时直接 c(n bit) = a(n bit) + b(n bit)
+				考虑carry时应采用+&: c(n+1 bit) = a(n bit) +& b(n bit)
+			对于signed,一般直接相加, c(n bit) = a(n bit) + b(n bit)
+				另算溢出: ovf = (a(n-1) && b(n-1) && !c(n-1)) ||
+								(!a(n-1) && !b(n-1) && c(n-1))
+		
+	(4)	chisel中, 两个n bit相乘,结果默认为2n bit(创建2n bit变量存放结果)
+			对于unsigned, 直接c(2n bit) = a(n bit) * b(n bit)
+			对于signed, 也直接c(2n bit) = a(n bit) * b(n bit)
+			且乘法只要计算正确并不会溢出
+			
+			assign c = $signed(a) * $signed(b)的行为: 将a/b符号位拓展后相乘,再截取低2n bit
+	(5) 在参数列表内需使用Int(scala语法),而class内部描述需使用SInt/UInt(chisel语法);
+		对于函数定义def中的参数类型,如果该函数用于生成硬件(编译时),则需使用Int(scala语法),
+			如果该函数直接用于描述硬件(运行时),则使用SInt/UInt(chisel语法)
+			但是泛型(template [T <: Data])函数既可以用于生成硬件,又可以用于描述硬件
+	
+	(6) := 用于chisel,代表硬件连接/赋值(可用于wire/reg); = 用于scala,代表普通赋值
+		val 代表不可变变量,通常为硬件信号; var 为可变变量,通常用于scala编程或硬件生成/数据初始化
+	
+	(7) 不可以在io的Bundle中直接指定硬件类型(只能指定数据类型),比如:
+			val in = Input(UInt(8.W)) - 正确
+			val in = Input(Vec(4, SInt(4.W))) - 正确
+			val in = Input(new myIO()) - 正确
+			val in = Wire(Input(UInt(8.W))) - 错误
+
+	(8) wire硬件类型:
+			Wire: 未初始化线网,如val sig = Wire(UInt(8.W))
+			WireInit/WireDefault: 初始化线网,如 val sig = WireInit(0.U(8.W))
+				(后面常存在条件赋值语句,转为verilog为assign sig = cond ? someValue : InitValue)
+
+		reg硬件类型:
+			Reg: 未初始化寄存器,如val reg = Reg(UInt(8.W))
+			RegInit: 初始化复位(通过reset信号进行)的寄存器,如 val reg = RegInit(3.U(8.W))
+			RegNext: 延迟一个周期后的输出结果
+	
+	(9)延迟出现的情况总结:  a.被驱动对象(左值)为reg类型
+                            b.驱动对象(右值)被放在RegNext中
+  	   举例:
+		a(wire) := b(wire/reg)             delay(b, a) = 0
+  		a(reg)  := b(wire/reg)             delay(b, a) = 1
+  		a(wire) := RegNext(b(wire/reg))    delay(b, a) = 1
+  		a(reg)  := RegNext(b(wire/reg))    delay(b, a) = 2
+
+	(10) 类似:=, <>两侧信号顺序也不可调换,始终是被驱动信号组放在左侧,如:
+		a := b  //用信号b驱动信号a
+		A <> B	//用B信号组驱动A信号组
+
+	(11)在用when描述时序逻辑时,类似verilog,内部:=为非阻塞赋值含义,如:
+		  when(io.en){
+    		reg := reg + 1.U
+    		when(reg === 6.U){//判断的是当前周期的值,而非上一条语句赋值之后的值
+      			reg := 0.U
+   	 		}
+  		  }
+		  仍计数到6之后才清零
+
+		  用when描述组合逻辑时,也类似verilog,内部:=为阻塞赋值含义;
+
+		  类似verilog,when描述时序逻辑时可以赋值路径不完备,而描述组合逻辑时则不可.
+
+
+
+
+8.有关buffer设计(假设采用标准ready-valid输入/输出接口):
+	(1)bubble buffer(每级只有1个dataBuf):
+		深度:n  	<->   级数:n  	<->    FTF:(n-1)cycles  	<->   DBD:2 cycles
+	
+	(2)double buffer(每级1个dataBuf + 1个shadowBuf):
+		深度:n  	<->  级数:n/2	<->	  FTF:(n/2-1)cycles		<->   DBD:1 cycle
+
+	(2)相较(1),吞吐量翻倍(无空泡),但面积也翻倍;但可以看到,这两种方案的FTF(first-to-first)延迟都很高,不适合处理高频或同步读写fifo的场景
+
+
+
+
