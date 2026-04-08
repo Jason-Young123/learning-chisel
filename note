@@ -1,7 +1,6 @@
 1. 在chisel中实例化module需要在外包裹Module()
 
-2. 只要使用switch语句,被赋值对象一点要在进入switch前进行初始化,不论其类型(reg/wire)或者switch的is列表
-全不全
+2. 只要使用switch语句,被赋值对象一定要在进入switch前进行初始化,不论其类型(reg/wire)或者switch的is列表全不全
 
 3. when语句按顺序执行,不同when语句中可以对同一变量(reg/wire)赋值,类似verilog中在always块内对同一变量多次
 赋值,此时最后赋值语句优先级最高;这些when语句也可以合并,例如:
@@ -58,7 +57,8 @@ posedge clk)时序逻辑
 
 7. 一些语法:
 	(1) .getWidth可以直接获取元素位宽,例如 a = Input(0.U((param).W)),其中param可能为某个参数(尤其在函数定义中常用)
-	(2) until循环计数包头不包尾; to循环计数包头包尾
+	(2) 循环语法: for(i <- x to/until y), 其中until循环计数包头不包尾、to循环计数包头包尾
+		或者: for(i <- y to/until x by -1)
 	(3) chisel中, 两个n bit相加,结果默认为n bit(创建n bit变量存放结果)
 			对于unsigned, 不考虑carry时直接 c(n bit) = a(n bit) + b(n bit)
 				考虑carry时应采用+&: c(n+1 bit) = a(n bit) +& b(n bit)
@@ -79,7 +79,9 @@ posedge clk)时序逻辑
 	
 	(6) := 用于chisel,代表硬件连接/赋值(可用于wire/reg); = 用于scala,代表普通赋值
 		val 代表不可变变量,通常为硬件信号; var 为可变变量,通常用于scala编程或硬件生成/数据初始化
-	
+		即进行硬件描述时, 变量为val类型, 可完成wire/reg建模, 赋值用:=
+		而进行仿真描述/添加测试激励时,变量为var类型,赋值用=
+
 	(7) 不可以在io的Bundle中直接指定硬件类型(只能指定数据类型),比如:
 			val in = Input(UInt(8.W)) - 正确
 			val in = Input(Vec(4, SInt(4.W))) - 正确
@@ -98,11 +100,15 @@ posedge clk)时序逻辑
 	
 	(9)延迟出现的情况总结:  a.被驱动对象(左值)为reg类型
                             b.驱动对象(右值)被放在RegNext中
+		注意, 创建对象本身不引入延时, 只有在赋值过程中或者涉及RegNext才会有延时
   	   举例:
 		a(wire) := b(wire/reg)             delay(b, a) = 0
   		a(reg)  := b(wire/reg)             delay(b, a) = 1
   		a(wire) := RegNext(b(wire/reg))    delay(b, a) = 1
   		a(reg)  := RegNext(b(wire/reg))    delay(b, a) = 2
+		val a = RegNext(b)				   delay(b, a) = 1 #a为reg类型,此处为创建对象而非赋值
+		val a = Reg(Bool())
+		a := RegNext(b)					   delay(b, a) = 2
 
 	(10) 类似:=, <>两侧信号顺序也不可调换,始终是被驱动信号组放在左侧,如:
 		a := b  //用信号b驱动信号a
@@ -120,7 +126,10 @@ posedge clk)时序逻辑
 		  用when描述组合逻辑时,也类似verilog,内部:=为阻塞赋值含义;
 
 		  类似verilog,when描述时序逻辑时可以赋值路径不完备,而描述组合逻辑时则不可.
-
+	
+	(12)Array并非chisel原生类,只会用于生成电路;
+		Bundle通常为不同信号的集合(类似C中struct),常用于IO建模;
+		Vec为同构信号的集合(同宽)(类似C中数组)
 
 
 
@@ -134,5 +143,27 @@ posedge clk)时序逻辑
 	(2)相较(1),吞吐量翻倍(无空泡),但面积也翻倍;但可以看到,这两种方案的FTF(first-to-first)延迟都很高,不适合处理高频或同步读写fifo的场景
 
 
+9.Mem和SyncReadMem区别:
+Mem为非同步内存,组合读、同步写
+SyncReadMem为同步内存,读写均为同步
+但不论哪种Mem,读都需要用.read(raddr)方法、写都需要用.write(waddr, wdata)方法
+
+10. scala数据结构 vs 硬件结构
+Scala 数据结构（编译时/运行时）
+scala
+// 这些都是 Scala 数据结构，不出现在最终硬件中
+val scalaArray = Array(1, 2, 3, 4)          // Scala Array[Int]
+val scalaList = List(1.U, 2.U, 3.U)         // Scala List[UInt]  
+val scalaBuffer = ArrayBuffer(1.U, 2.U)     // Scala ArrayBuffer[UInt]
+val scalaSeq = Seq.fill(4)(0.U)             // Scala Seq[UInt]
+
+// 这些在编译时使用，生成硬件后就消失了
+Chisel 硬件结构（出现在电路中）
+scala
+// 这些都是 Chisel 硬件结构，会出现在最终电路中
+val chiselVec = VecInit(Seq(1.U, 2.U, 3.U)) // Chisel Vec[UInt]
+val chiselMem = Mem(256, UInt(8.W))         // Chisel Mem
+val chiselReg = Reg(UInt(8.W))              // Chisel 寄存器
+val chiselWire = Wire(UInt(8.W))            // Chisel 线网
 
 

@@ -1,0 +1,75 @@
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(mealyTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(DUTTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(operatorTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(counterTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(inheritTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(fifoTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(factoringFSMTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(memTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(regsTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(FSMDTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(lutTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(integerTest, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(DUTTestWave, org.scalatest.tools.Framework$$anon$1@5ca99cd9, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32moperatorTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32moperatorTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32minheritTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mUpTickerTest 20[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mDownTickerTest 30[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mfifoTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mfifoTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mDUTTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mDUTTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mfactoringFSMTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mfactoringFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mlutTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mlutTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmemTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmemTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mFSMDTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mFSMDTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mregsTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mregsTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mregDelayTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmealyTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmealyTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mDUTTestWave:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mDUTTestWave[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass and REC wave[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mintegerTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mInteger Test[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should add[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mcounterTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mcounterTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should pass[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 3 seconds, 105 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 15[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 13, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 15, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	DUTTestWave[0m
+[0m[[0m[0mdebug[0m] [0m[0m	DUTTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	fifoTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	lutTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	memTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	counterTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	integerTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	FSMDTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	mealyTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	factoringFSMTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	regsTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	operatorTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	inheritTest[0m

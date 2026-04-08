@@ -57,7 +57,7 @@ circuit factoringFSM :
     reg state : UInt<2>, clock with :
       reset => (UInt<1>("h0"), state) @[src/main/scala/FSM/factoringFSM.scala 70:22]
     node _T = eq(UInt<2>("h0"), state) @[src/main/scala/FSM/factoringFSM.scala 73:16]
-    node _timerReg_T = mux(io_timerSelect, UInt<2>("h2"), UInt<1>("h0")) @[src/main/scala/FSM/factoringFSM.scala 77:24]
+    node _timerReg_T = mux(io_timerSelect, UInt<3>("h4"), UInt<2>("h2")) @[src/main/scala/FSM/factoringFSM.scala 77:24]
     node _GEN_0 = mux(io_timerLoad, UInt<2>("h1"), state) @[src/main/scala/FSM/factoringFSM.scala 75:25 76:15 70:22]
     node _GEN_1 = mux(io_timerLoad, _timerReg_T, timerReg) @[src/main/scala/FSM/factoringFSM.scala 75:25 77:18 66:25]
     node _T_1 = eq(UInt<2>("h1"), state) @[src/main/scala/FSM/factoringFSM.scala 73:16]

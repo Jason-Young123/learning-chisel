@@ -3,3 +3,7 @@
 1765378848415:runMain FlipFlop
 1765378856086:runMain src/FlipFlop
 1765379063346:runMain FlipFlop
+1768207211285:q
+1768207212785:ls
+1775533622288:println(chisel3.BuildInfo.version)
+1775533648970:println(a)

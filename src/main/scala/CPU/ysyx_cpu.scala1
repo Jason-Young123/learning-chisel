@@ -1,0 +1,59 @@
+import chisel3._
+import chisel3.util._
+
+
+
+class Register extends Module{
+    val io = IO(new Bundle{
+        val reset = Input(Bool())
+        val wen = Input(Bool())
+        val wdata = Input(UInt(32.W))
+        val waddr = Input(UInt(4.W))
+        val raddr1 = Input(UInt(4.W))
+        val raddr2 = Input(UInt(4.W))
+        val rdata1 = Output(UInt(32.W))
+        val rdata2 = Output(UInt(32.W))
+    })
+
+    val regs = SyncReadMem(16, UInt(32.W))//16 x 32bit寄存器
+
+    io.rdata1 := regs.read(io.raddr1)
+    io.rdata2 := regs.read(io.raddr2)
+
+    when(io.reset){
+        for(i <- 0 until 16){
+            regs.write(i, 0.U(32.W))
+        }
+    } .elsewhen(io.wen){
+        regs.write(io.waddr, io.wdata)
+    }
+}
+
+
+
+class CSRegister extends Module{
+    val io = IO(new Bundle{
+        val reset = Input(Bool())
+        val wen = Input(UInt(8.W))
+        val wdata = Input(UInt(32.W))
+        val waddr = Input(UInt(12.W))
+        val raddr = Input(UInt(12.W))
+        val rdata = Output(UInt(32.W))
+    })
+
+    val CSRegs = SyncReadMem(8, UInt(32.W))
+
+    rdata := 0
+    switch(io.raddr){
+        is("h300".U(12.W)){
+            rdata := CSRegs.read(0)
+        }
+        is("h305".U(12.W)){
+            rdata := CSRegs.read(1)
+        }
+        //is("")
+    }
+
+
+}
+

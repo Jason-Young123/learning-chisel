@@ -1,1 +1,1 @@
-["DUT","DUT2Gen","FSMDGen","counterGen","decoderGen","factoringFSMGen","fifoGen","foo1Gen","foo2Gen","funcGen","funcHWGen","inheritGen","lutGen","mealyGen","memGen","mooreGen","operatorGen","paramGen","regsGen","shiftregsGen","tricksGen","wireGen"]
+["BootCamp.PassthroughGeneratorGen","DUT","DUT2Gen","FSMDGen","counterGen","decoderGen","factoringFSMGen","fifoGen","foo1Gen","foo2Gen","funcGen","funcHWGen","inheritGen","lutGen","mealyGen","memGen","mooreGen","operatorGen","paramGen","regsGen","shiftregsGen","tricksGen","wireGen"]
